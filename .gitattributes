@@ -1,0 +1,7 @@
+# Keep Windows scripts usable when checked out: cmd/ps1/vbs must have CRLF line endings.
+* text=auto
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+*.vbs text eol=crlf
+*.png binary
+*.ppext binary

@@ -1,0 +1,15 @@
+# Build output
+dist/
+*.ppext
+
+# Extension runtime data (never commit: credentials, logs, exception records)
+extension-data/
+credential.bin
+settings.json
+exceptions.json
+logs/
+node_modules/
+
+# Local notes
+.env
+*.local.md

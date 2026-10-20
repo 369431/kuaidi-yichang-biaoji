@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>内物不符异常标记 · 打包台</title>
+    <link rel="stylesheet" href="/assets/style.css" />
+  </head>
+  <body>
+    <header class="app-header">
+        <div>
+          <h1 class="app-title">内物不符异常标记</h1>
+          <div class="app-subtitle">扫码后直接在 PackingProof 里按快捷键标记，不用切窗口；这个页面用于查看和处理</div>
+        </div>
+      <nav>
+        <span id="statusPill" class="status-pill"><span class="dot"></span><span id="statusText">连接中…</span></span>
+        <a href="/manage">异常处理 →</a>
+      </nav>
+    </header>
+
+    <main class="page">
+      <section class="scan-grid">
+        <div class="card">
+          <h2>当前单号</h2>
+          <div id="tracking" class="tracking-value is-empty">等待扫码…</div>
+          <div class="meta-row">
+            <span id="scanMeta">在 PackingProof 扫码开始录制后面板会自动跟上</span>
+          </div>
+          <div id="scanBanner" class="banner warn" hidden></div>
+          <div class="field-row">
+            <div class="field">
+              <label for="note">备注（可选）</label>
+              <input id="note" type="text" maxlength="300" placeholder="例如：少了 1 件 A 商品" autocomplete="off" />
+            </div>
+            <div class="field" style="max-width: 240px">
+              <label for="operator">操作员</label>
+              <input id="operator" type="text" maxlength="40" placeholder="你的名字" autocomplete="off" />
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>异常原因</h2>
+          <div id="reasons" class="reason-grid"></div>
+          <div id="hotkeyHint" class="banner info" style="margin-top: 12px">正在注册全局快捷键…</div>
+          <div style="display: flex; gap: 10px; margin-top: 10px; align-items: center">
+            <button id="editHotkeys" class="btn" type="button">自定义快捷键</button>
+            <span class="hint">在本页也可以标记：1-6 选原因 · Enter 提交 · Esc 清空</span>
+          </div>
+          <div class="field-row">
+            <button id="submit" class="btn btn-danger" disabled>标记为异常</button>
+            <span id="submitHint" class="hint">先扫码开始录像，再选择异常原因</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>最近标记 <a href="/manage" style="float: right; font-size: 12.5px">全部记录 →</a></h2>
+        <ul id="recent" class="recent-list"></ul>
+        <div id="recentEmpty" class="empty">还没有异常记录</div>
+      </section>
+
+      <section class="card">
+        <h2>连接</h2>
+        <div class="meta-row">
+          <span>主机：<span id="host" class="mono">—</span></span>
+          <span>工位：<span id="node">—</span></span>
+        </div>
+        <div class="meta-row" id="accessUrls" style="margin-top: 6px"></div>
+        <div class="meta-row" id="systemStatus" style="margin-top: 6px"></div>
+        <div style="display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap">
+          <button id="retryFirewall" class="btn" type="button">重试放行防火墙</button>
+          <button id="toggleAutoStart" class="btn" type="button">开机自启：关</button>
+          <button id="toggleOverlay" class="btn" type="button">悬浮标记条：关</button>
+        </div>
+        <div id="authBanner" class="banner error" hidden></div>
+        <div class="field-row">
+          <div style="display: flex; gap: 8px; align-items: center">
+            <button id="reauth" class="btn">重新授权</button>
+            <button id="restartPanel" class="btn" type="button">重启插件</button>
+            <button id="stopPanel" class="btn" type="button">停止插件</button>
+            <span id="dataDir" class="hint mono" style="font-size: 11.5px"></span>
+          </div>
+        </div>
+      </section>
+
+      <p class="footer-note">
+        面板默认对局域网开放（可在 settings.json 关掉）· 异常记录保存在本机扩展数据目录 · 录像仍在录制时会把原因写进录像水印
+      </p>
+    </main>
+
+    <div id="hotkeyModal" class="modal-backdrop">
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="hotkeyTitle">
+        <header>
+          <h3 id="hotkeyTitle">自定义快捷键</h3>
+          <button class="close" type="button" data-close="hotkeyModal" aria-label="关闭">×</button>
+        </header>
+        <div class="body" id="hotkeyBody"></div>
+      </div>
+    </div>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="/assets/app.js"></script>
+  </body>
+</html>

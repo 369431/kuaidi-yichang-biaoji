@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>内物不符异常标记 · 异常处理</title>
+    <link rel="stylesheet" href="/assets/style.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div>
+        <h1 class="app-title">异常处理</h1>
+        <div class="app-subtitle">内物不符记录的跟进、备注、导出与录像证据</div>
+      </div>
+      <nav>
+        <span id="statusPill" class="status-pill"><span class="dot"></span><span id="statusText">连接中…</span></span>
+        <a href="/">← 打包台</a>
+      </nav>
+    </header>
+
+    <main class="page">
+      <section class="stats-grid" id="stats"></section>
+
+      <section class="card">
+        <h2>筛选</h2>
+        <div class="filters">
+          <div class="field">
+            <label for="filterStatus">状态</label>
+            <select id="filterStatus">
+              <option value="">全部</option>
+              <option value="pending">待处理</option>
+              <option value="processing">处理中</option>
+              <option value="resolved">已处理</option>
+              <option value="ignored">已忽略</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="filterFrom">开始日期</label>
+            <input id="filterFrom" type="date" />
+          </div>
+          <div class="field">
+            <label for="filterTo">结束日期</label>
+            <input id="filterTo" type="date" />
+          </div>
+          <div class="field grow">
+            <label for="filterQuery">单号 / 备注 / 处理人</label>
+            <input id="filterQuery" type="text" maxlength="60" placeholder="输入关键词" autocomplete="off" />
+          </div>
+          <div class="actions">
+            <button id="search" class="btn btn-primary">查询</button>
+            <button id="reset" class="btn">重置</button>
+            <button id="export" class="btn">导出 CSV</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>异常记录 <span id="totalHint" class="hint"></span></h2>
+        <div style="overflow-x: auto">
+          <table class="records">
+            <thead>
+              <tr>
+                <th>单号</th>
+                <th>原因</th>
+                <th>备注</th>
+                <th>状态</th>
+                <th>操作员</th>
+                <th>标记时间</th>
+                <th>处理备注</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody id="rows"></tbody>
+          </table>
+        </div>
+        <div id="empty" class="empty">还没有异常记录</div>
+        <div class="pager">
+          <button id="prev" class="btn">上一页</button>
+          <span id="pageHint">第 1 页</span>
+          <button id="next" class="btn">下一页</button>
+        </div>
+      </section>
+
+      <p class="footer-note">撤销误标会保留记录用于审计，并在录像仍在录制时把水印改写成“已撤销”</p>
+    </main>
+
+    <div id="handleModal" class="modal-backdrop">
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="handleTitle">
+        <header>
+          <h3 id="handleTitle">处理异常</h3>
+          <button class="close" type="button" data-close="handleModal" aria-label="关闭">×</button>
+        </header>
+        <div class="body" id="handleBody"></div>
+      </div>
+    </div>
+
+    <div id="evidenceModal" class="modal-backdrop">
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="evidenceTitle">
+        <header>
+          <h3 id="evidenceTitle">录像证据</h3>
+          <button class="close" type="button" data-close="evidenceModal" aria-label="关闭">×</button>
+        </header>
+        <div class="body" id="evidenceBody"></div>
+      </div>
+    </div>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="/assets/manage.js"></script>
+  </body>
+</html>

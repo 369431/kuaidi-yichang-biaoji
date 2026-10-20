@@ -1,0 +1,25 @@
+{
+  "name": "packingproof-inner-mismatch",
+  "version": "1.1.8",
+  "private": true,
+  "type": "module",
+  "description": "PackingProof extension: mark tracking numbers whose inner contents do not match, then handle them afterwards",
+  "license": "AGPL-3.0-only",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test \"test/*.test.mjs\"",
+    "pack": "node scripts/pack.mjs",
+    "smoke": "node scripts/smoke.mjs",
+    "start": "node payload/src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/369431/kuaidi-yichang-biaoji.git"
+  },
+  "homepage": "https://github.com/369431/kuaidi-yichang-biaoji#readme",
+  "bugs": {
+    "url": "https://github.com/369431/kuaidi-yichang-biaoji/issues"
+  }
+}
