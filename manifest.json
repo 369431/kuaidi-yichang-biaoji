@@ -2,8 +2,8 @@
   "$schema": "https://packingproof.dev/schemas/author-manifest.v1.schema.json",
   "schemaVersion": 1,
   "id": "369431.inner-mismatch",
-  "name": "内物不符异常标记",
-  "version": "1.1.8",
+  "name": "快递异常标记",
+  "version": "1.1.9",
   "type": "external-adapter",
   "minPackingProofVersion": "0.0.63",
   "payload": "payload/start.cmd"

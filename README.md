@@ -27,7 +27,7 @@
 快捷键可以整套改：面板里点「自定义快捷键」，按一下你要的组合键即可；也可以给单个原因直配组合键，
 不必经过「先按 F9」。这些设置写在 `settings.json`，细节见「配置」。
 
-扩展 ID：`369431.inner-mismatch` · 类型：`external-adapter` · 版本：`1.1.8` · 仅 Windows
+扩展 ID：`369431.inner-mismatch` · 类型：`external-adapter` · 版本：`1.1.9` · 仅 Windows
 
 ## 界面
 
@@ -99,7 +99,7 @@
 ### 方式 A：本地导入 `.ppext`（推荐）
 
 1. 打开 PackingProof 电脑端 →「设置 → 扩展与联动」→ 找到扩展市场的本地导入入口
-2. 选择 `dist/369431.inner-mismatch-1.1.8.ppext`
+2. 选择 `dist/369431.inner-mismatch-1.1.9.ppext`
 3. 导入后点扩展卡片上的**「启动」按钮**
 4. 首次运行会依次发生三件事：
    - PackingProof 弹出**授权窗口**：确认名称/来源/权限后点允许
@@ -332,7 +332,7 @@ test/                     node:test
 本仓库自带打包器 `scripts/pack.mjs`（不依赖第三方包，字节稳定，重复打包结果一致）：
 
 ```powershell
-npm run pack        # → dist/369431.inner-mismatch-1.1.8.ppext
+npm run pack        # → dist/369431.inner-mismatch-1.1.9.ppext
 ```
 
 为什么不用官方 `ppext pack`：市场工具会把作者清单展开成包内清单，而 `author-manifest.v1` Schema
@@ -347,8 +347,8 @@ npm run pack        # → dist/369431.inner-mismatch-1.1.8.ppext
 产物已用官方校验器（`tools/lib/package-validator.mjs` + 市场 Schema）验证通过，`warnings` 为空。
 想生成不带启动按钮的包：`node scripts/pack.mjs --launcher ""`。
 
-投稿流程不变：把该 asset 上传到 GitHub/Gitee 稳定 Release（tag 建议 `v1.1.8`，Asset 名必须是
-`369431.inner-mismatch-1.1.8.ppext`），再在市场仓库准备 `submission.json` 后运行
+投稿流程不变：把该 asset 上传到 GitHub/Gitee 稳定 Release（tag 建议 `v1.1.9`，Asset 名必须是
+`369431.inner-mismatch-1.1.9.ppext`），再在市场仓库准备 `submission.json` 后运行
 `npm run submit -- --project <本目录>`。`submit` 只比对 `id`/`version`/`type`/`compatibility`/`access`，
 `launcher` 不影响登记。`submission.json` 需要作者主页、项目主页、许可证等对外信息，本仓库暂未生成——
 投稿前先建好公开仓库（`source` 字段当前指向 `https://github.com/369431/kuaidi-yichang-biaoji`）。

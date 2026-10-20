@@ -22,13 +22,13 @@ const DOS_TIME = 0;
 const DOS_DATE = ((2000 - 1980) << 9) | (1 << 5) | 1;
 
 /** Builds the PPEXT manifest.json (package-manifest.v1) from the author manifest. */
-export function buildPackageManifest(authorManifest, { launcherPath = DEFAULT_LAUNCHER } = {}) {
+export function buildPackageManifest(authorManifest, { launcherPath = DEFAULT_LAUNCHER, access } = {}) {
   const isUserscript = authorManifest.type === "userscript";
   const manifest = {
     access: {
-      packingProofCapabilities: [],
-      packingProofPermissions: [],
-      systemAccess: []
+      packingProofCapabilities: access?.packingProofCapabilities ?? [],
+      packingProofPermissions: access?.packingProofPermissions ?? [],
+      systemAccess: access?.systemAccess ?? []
     },
     compatibility: {
       minPackingProofVersion: authorManifest.minPackingProofVersion,
@@ -207,7 +207,15 @@ export async function packProject(projectRoot, outputPath, { launcherPath = DEFA
   }
 
   const files = await collectFiles(projectRoot);
-  const manifest = buildPackageManifest(authorManifest, { launcherPath });
+  // The permissions/system access declared in package.json end up in the package manifest so the
+  // market can show what the extension really uses.
+  let buildAccess;
+  try {
+    buildAccess = JSON.parse(await readFile(path.join(projectRoot, "package.json"), "utf8")).packingproofAccess;
+  } catch {
+    buildAccess = undefined;
+  }
+  const manifest = buildPackageManifest(authorManifest, { launcherPath, access: buildAccess });
   const entryPath = manifest.installation.suggestedPath ?? manifest.installation.payloadPath;
   if (!files.some((file) => file.relative === entryPath)) {
     throw new Error(`安装入口不存在：${entryPath}`);

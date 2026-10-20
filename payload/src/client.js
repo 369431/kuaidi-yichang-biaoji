@@ -3,7 +3,7 @@ import { createHash, createHmac, randomBytes, randomUUID } from "node:crypto";
 export const EXTENSION_IDENTITY = Object.freeze({
   providerId: "369431.inner-mismatch",
   displayName: "内物不符异常标记",
-  version: "1.1.8",
+  version: "1.1.9",
   source: "https://github.com/369431/kuaidi-yichang-biaoji",
   requestedPermissions: Object.freeze([
     "recordings.active.read",

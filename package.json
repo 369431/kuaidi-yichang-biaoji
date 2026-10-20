@@ -1,6 +1,6 @@
 {
   "name": "packingproof-inner-mismatch",
-  "version": "1.1.8",
+  "version": "1.1.9",
   "private": true,
   "type": "module",
   "description": "PackingProof extension: mark tracking numbers whose inner contents do not match, then handle them afterwards",
@@ -21,5 +21,28 @@
   "homepage": "https://github.com/369431/kuaidi-yichang-biaoji#readme",
   "bugs": {
     "url": "https://github.com/369431/kuaidi-yichang-biaoji/issues"
+  },
+  "packingproofAccess": {
+    "packingProofPermissions": [
+      "recordings.active.read",
+      "recording-fields.write",
+      "recordings.search",
+      "recordings.download"
+    ],
+    "packingProofCapabilities": [],
+    "systemAccess": [
+      {
+        "id": "network",
+        "reason": "局域网面板监听本机端口 8792，并访问 Desktop 的本机扩展 API"
+      },
+      {
+        "id": "process.launch",
+        "reason": "启动悬浮标记条窗口与全局快捷键宿主进程"
+      },
+      {
+        "id": "filesystem.write",
+        "reason": "在本机扩展数据目录保存异常记录、设置与日志"
+      }
+    ]
   }
 }
